@@ -64,60 +64,60 @@ const ActivityItem: React.FC<Props> = ({ activity, isLast }) => {
     <div className="flex gap-4 relative group">
       {/* Timeline Line - Fixed position relative to icon */}
       <div className="flex flex-col items-center">
-         <div 
-            className="w-1 bg-gray-200 absolute top-0 bottom-0 left-[26px] -z-10" 
-            style={{ display: isLast ? 'none' : 'block' }}
-         ></div>
-         {/* Icon Wrapper - Enlarged for better visibility */}
-         <div className="w-14 h-14 rounded-full bg-white border-2 border-blue-50 shadow-sm flex items-center justify-center z-10">
-           {getIcon(activity.icon)}
-         </div>
+        <div
+          className="w-1 bg-gray-200 absolute top-0 bottom-0 left-[26px] -z-10"
+          style={{ display: isLast ? 'none' : 'block' }}
+        ></div>
+        {/* Icon Wrapper - Enlarged for better visibility */}
+        <div className="w-14 h-14 rounded-full bg-white border-2 border-blue-50 shadow-sm flex items-center justify-center z-10">
+          {getIcon(activity.icon)}
+        </div>
       </div>
 
       {/* Content Card */}
       <div className="flex-grow pb-12">
         <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm active:scale-[0.99] transition-transform duration-100">
-            <div className="flex justify-between items-start mb-4">
-                {/* Time Badge - Enlarged text */}
-                <span className="inline-block px-4 py-1.5 rounded-lg text-lg font-bold bg-gray-100 text-gray-800">
-                    {activity.time}
-                </span>
-            </div>
-            
-            {/* Title - Significantly Larger (text-3xl) */}
-            <h3 className="text-3xl font-extrabold text-gray-900 leading-tight mb-4">
-                {activity.title}
-            </h3>
-            
-            {/* Description - Larger body text (text-xl) and darker color for contrast */}
-            {activity.description && (
-                <p className="text-gray-800 text-xl mb-6 leading-relaxed font-medium">
-                    {activity.description}
-                </p>
-            )}
+          <div className="flex justify-between items-start mb-4">
+            {/* Time Badge - Enlarged text */}
+            <span className="inline-block px-4 py-1.5 rounded-lg text-lg font-bold bg-gray-100 text-gray-800">
+              {activity.time}
+            </span>
+          </div>
 
-            {/* Map Action Bar */}
-            <div className="flex flex-col gap-4 mt-5 pt-5 border-t border-dashed border-gray-200">
-                <div className="flex items-start gap-3 text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span className="font-medium text-lg leading-snug">{activity.location}</span>
-                </div>
+          {/* Title - Significantly Larger (text-3xl) */}
+          <h3 className="text-3xl font-extrabold text-gray-900 leading-tight mb-4">
+            {activity.title}
+          </h3>
 
-                <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activity.mapQuery)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 px-6 py-4 bg-blue-600 text-white text-xl font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors w-full"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.447-.894L15 7m0 13V7" />
-                    </svg>
-                    開啟地圖導航
-                </a>
+          {/* Description - Larger body text (text-xl) and darker color for contrast */}
+          {activity.description && (
+            <p className="text-gray-800 text-xl mb-6 leading-relaxed font-medium whitespace-pre-line">
+              {activity.description}
+            </p>
+          )}
+
+          {/* Map Action Bar */}
+          <div className="flex flex-col gap-4 mt-5 pt-5 border-t border-dashed border-gray-200">
+            <div className="flex items-start gap-3 text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="font-medium text-lg leading-snug">{activity.location}</span>
             </div>
+
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activity.mapQuery)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 px-6 py-4 bg-blue-600 text-white text-xl font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors w-full"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.447-.894L15 7m0 13V7" />
+              </svg>
+              開啟地圖導航
+            </a>
+          </div>
         </div>
       </div>
     </div>
