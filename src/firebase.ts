@@ -2,14 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCCLt4nvUBrbwFB_Q8opzjldVs6fpG0RNI",
-    authDomain: "malaysia-trip-8d7n.firebaseapp.com",
-    databaseURL: "https://malaysia-trip-8d7n-default-rtdb.firebaseio.com",
-    projectId: "malaysia-trip-8d7n",
-    storageBucket: "malaysia-trip-8d7n.firebasestorage.app",
-    messagingSenderId: "703678337660",
-    appId: "1:703678337660:web:73781a7aecfb777e6feff9",
-    measurementId: "G-GL4531SSC5"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
