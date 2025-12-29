@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
-import { ITINERARY_DATA } from '../../constants';
+import React, { useState, useEffect } from 'react';
+import { ITINERARY_DATA as INITIAL_DATA } from '../../constants';
+import { fetchItinerary, saveItinerary } from '../services/itineraryService';
 import { Link } from 'react-router-dom';
 
 const Admin: React.FC = () => {
-    const [data, setData] = useState(ITINERARY_DATA);
+    const [data, setData] = useState(INITIAL_DATA);
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        fetchItinerary().then(fetchedData => {
+            setData(fetchedData);
+        });
+    }, []);
 
     const handleSave = async () => {
         setSaving(true);
         setMessage('');
         try {
-            const res = await fetch('/api/save-itinerary', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if (!res.ok) throw new Error('Save failed');
-            setMessage('✅ Saved successfully!');
+            await saveItinerary(data);
+            setMessage('✅ Saved successfully to Firebase!');
+            setHasUnsavedChanges(false);
         } catch (err) {
             console.error(err);
             setMessage('❌ Error saving data.');

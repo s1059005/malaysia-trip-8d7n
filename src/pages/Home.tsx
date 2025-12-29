@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ITINERARY_DATA } from '../../constants';
+import { ITINERARY_DATA as INITIAL_DATA } from '../../constants';
+import { fetchItinerary } from '../services/itineraryService';
+import { ItineraryDay } from '../../types';
 import ActivityItem from '../../components/ActivityItem';
 import AIChatModal from '../../components/AIChatModal';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
+    const [itineraryData, setItineraryData] = useState<ItineraryDay[]>(INITIAL_DATA);
+    const [loading, setLoading] = useState(true);
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
     const [isAiChatOpen, setIsAiChatOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchItinerary();
+                setItineraryData(data);
+            } catch (error) {
+                console.error("Failed to load itinerary:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
 
     // Handle Sticky Header Shadow on scroll
     useEffect(() => {
@@ -18,7 +36,7 @@ const Home: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const currentDayData = ITINERARY_DATA[selectedDayIndex];
+    const currentDayData = itineraryData[selectedDayIndex] || itineraryData[0];
 
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-gray-900 pb-24 safe-area-pb">
@@ -50,7 +68,7 @@ const Home: React.FC = () => {
 
                     {/* Day Selector (Horizontal Scroll) - Enlarged Targets */}
                     <div className="flex overflow-x-auto pb-3 px-4 scrollbar-hide gap-3 no-scrollbar">
-                        {ITINERARY_DATA.map((day, index) => (
+                        {itineraryData.map((day, index) => (
                             <button
                                 key={day.day}
                                 onClick={() => {
@@ -126,7 +144,7 @@ const Home: React.FC = () => {
                 isOpen={isAiChatOpen}
                 onClose={() => setIsAiChatOpen(false)}
                 currentDay={currentDayData}
-                allItinerary={ITINERARY_DATA}
+                allItinerary={itineraryData}
             />
 
         </div>
